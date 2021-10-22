@@ -1,8 +1,6 @@
 # Project Structure
-Due to most elements of this process requiring state, this project uses an object oriented design.
-Once there is a natural grouping of functionality, especially if there is any state involved,
-it should be contained within a class.
-For the details of the current project structure, please see the documentation on Confluence.
+Most elements of this system require state and each have a few related functionalities, which lends itself to an object oriented design.
+
 Here are the main components:
 
 `models` contains Camera, Vehicle, and BoundingBox objects, basically convenience classes for the video-object problem.
@@ -22,24 +20,18 @@ Here are the main components:
 
 # Getting Started
 
-* This project uses [poetry](https://github.com/python-poetry/poetry) for virtual environment and dependency management
-    * If necessary install poetry
-    `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`
-    * Run `poetry env use [/path/to/python/binary]` e.g. `poetry env use ~/.pyenv/versions/3.8.5/bin/python3`
-    This creates the virtual environment and lets you explicitly tell it which python to run when the environment is active
-    * Run `source $(poetry env info --path)/bin/activate` to activate the environment (`poetry shell` can also be used,
-     but can cause potential issues if the shell is already activated. See
-     [poetry documentation](https://python-poetry.org/docs/basic-usage/#activating-the-virtual-environment) for more info)
-    * Run `poetry install` to install all dependencies into the environment
-    * When finished, deactivate the environment with `deactivate`
+* Set up your environment. If you like, do this in a virtual environment:
+    - `python3 -m pip install venv`
+    - `python3 -m venv .venv`
+    - `source .venv/bin/activate`
+    - `python3 -m pip install -r requirements.txt`
+    - `deactivate` when done
 * To run oasis:
-    * Make sure poetry environment is activated
-    * Make sure you're in the inner oasis directory
-    * Run `python oasis_main.py (optional: -d [directory with test data, for instance test_data/EVIL_CHK001])`
+    * cd to the `oasis` directory
+    * `python oasis_main.py (optional: -d [directory with test data, for instance test_data/EVIL_CHK001])`
 * To run tests:
-    * Make sure poetry environment is activated
-    * Make sure you're in the inner oasis directory
-    * Run `python -m pytest -s`
+    * cd to the `oasis` directory
+    * `python -m pytest -s`
 
 
 # Configuration
@@ -54,10 +46,8 @@ This is also where runtime configurations can be adjusted, such as which visuali
 
 ## Comments
 This code implements non-trivial calculations that would not be clear from clean code and naming alone.
-Hence the propensity of comments. There is no requirement to fully match a specific comment style or level of elaboration,
+Hence the proliferation of comments. There is no requirement to fully match a specific comment style or level of elaboration,
 but the goal is to have enough comments for a reader to fully understand what is happening.
-It is the contributor's responsibility to ensure that comments are updated with the code
-and accurately represent the current state.
 
 ## Testing
 Unit tests should be written to cover any new functionality and modified with any changes.
@@ -69,13 +59,4 @@ When possible, maintain tight testing boundaries in unit tests. This means that 
 than one method- calls to other methods should be mocked.
 There is room for a small set of broader "happy path" integration style tests, but they work in conjunction, not to replace the unit tests.
 
-## Style/Formatting
-For now, we are minimizing the number of tools used for automatically formatting the project
-and are not enforcing a specific style beyond clear and readable code and standard best practices.
-This might evolve as the team and the project grows, but we will not be adding extraneous tools or convention
-until a need is felt.
 
-### Tools
-* To help automatically organize imports, you can use [isort](https://pypi.org/project/isort/).
-* The project has [black-with-tabs](https://pypi.org/project/black-with-tabs/) available for automatic code formatting. Feel free to use it on new files.
-Do not use on existing files if it causes excessive reformatting, since some contributors prefer a different coding style in their work.

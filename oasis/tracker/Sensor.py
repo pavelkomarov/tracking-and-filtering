@@ -31,7 +31,7 @@ class Sensor(ABC):
 		a particular Measurement.
 
 		:param raw: salient information that belongs to a Measurement. Can be the value y, can be something like a bbox
-		:returns: 
+		:returns: R, the covariance of the measurement noise
 		"""
 		pass
 

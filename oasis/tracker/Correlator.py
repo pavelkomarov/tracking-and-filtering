@@ -41,11 +41,11 @@ class Correlator:
 		# each measurement gets assigned to a track or retains -1 -> no correlation
 		assignment = numpy.ones(len(measurements), dtype='<i4')*Correlator.UNEXPLAINED # initially all are unexplained
 
-		subset_dict = defaultdict(list) # make dict from Sensor -> indices of Measurements with that Sensor
-		for l,m in enumerate(measurements):
-			subset_dict[m.sensor].append(l)
+		subset_dict = defaultdict(list) # make dict from Sensor -> indices of Measurements from that Sensor, the idea
+		for l,m in enumerate(measurements): # being that we can constrain pairings by knowledge that no Sensor should
+			subset_dict[m.sensor].append(l) # have more than one Measurement for the same Target
 
-		for _, subset in subset_dict.items(): # for each group of measurements from the same sensor (subset of all)
+		for _, subset in subset_dict.items(): # for each group of measurements from the same Sensor (subset of all)
 			
 			# Calculate the distance metric between all (track, measurement) pairs
 			D = numpy.zeros((len(active_tracks), len(subset)))
@@ -59,7 +59,7 @@ class Correlator:
 			# to a track, and some tracks can be left over. If |tracks| < |measurements|, then |tracks| measurements get
 			# assigned to a track, and some measurements are left over.
 			r, c = hungarian_algorithm(D) # r = matched track indices; c = matched measurement subset indices
-			for k in range(len(r)): # have to loop because assignment[subset][c] is a copy, not a view
+			for k in range(len(r)): # have to loop because assignment[subset][c] is a copy, not a view, because c is a list
 				assignment[subset[c[k]]] = r[k] # any leftover measurements don't get assigned here and just stay -1
 
 			# The above is the easiest way to use the Hungarian algorithm (works no matter whether |measurements| or

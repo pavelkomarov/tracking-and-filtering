@@ -263,10 +263,10 @@ class BaseVisualizationElementPlotter(ABC):
 
 	@staticmethod
 	def get_ellipse_outline(xc: float, yc: float, P: numpy.ndarray) -> numpy.ndarray:
-		"""Get a list of xy coordinates that form the outline of an ellipse centered at (xc, yc) and with with a
+		"""Get a list of xy coordinates that form the outline of an ellipse centered at (xc, yc) and with a
 		covariance matrix P. For why this works, see https://cookierobotics.com/007/. Every 2x2 matrix is essentially
 		just stretching and rotating. So in the “Rotated Ellipse” formulation on that page, if you factor the r_x and
-		r_y out of the [cos(t); sin(t)] vector and put it instead in the rotation matrix, you recover the whole matrix.
+		r_y out of the [cos(t); sin(t)] vector and put it instead in the rotation matrix, you recover P.
 
 		:param xc: the x-coordinate of the ellipse's center
 		:param yc: the y-coordinate of the ellipse's center

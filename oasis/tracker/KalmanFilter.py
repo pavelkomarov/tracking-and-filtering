@@ -143,10 +143,10 @@ class KalmanFilter:
 		"""
 		N = F.shape[0]
 
-		C = numpy.block([[-F, Q],[numpy.zeros((N,N)), F.T]])
+		C = numpy.block([[F, Q],[numpy.zeros((N,N)), -F.T]])
 		C = expm(C*dt)
 
-		Phi = C[N:,N:].T # this is the same as expm(F*dt)
-		Q_k = Phi.dot(C[:N,N:])
+		Phi = C[:N,:N] # this is the same as expm(F*dt)
+		Q_k = C[:N,N:] @ Phi.T
 
 		return Phi, Q_k

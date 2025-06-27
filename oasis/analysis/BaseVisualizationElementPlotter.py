@@ -275,8 +275,9 @@ class BaseVisualizationElementPlotter(ABC):
 		"""
 		t = numpy.linspace(-numpy.pi, numpy.pi, 50)
 		xy = numpy.vstack((numpy.cos(t), numpy.sin(t)))
+		L, V = np.linalg.eig(P)
 
-		return numpy.dot(P, xy) + numpy.array([[xc], [yc]])
+		return V * np.sqrt(L) @ xy + numpy.vstack((xc, yc))
 
 	@staticmethod
 	def __squish_concatenate_elements(element_list: List[numpy.ndarray]) -> numpy.ndarray:
